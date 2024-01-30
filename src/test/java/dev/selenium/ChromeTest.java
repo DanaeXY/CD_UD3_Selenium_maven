@@ -9,9 +9,11 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.Select;
 
 public class ChromeTest{
 
@@ -28,7 +30,7 @@ public class ChromeTest{
  @AfterAll//se coloca al final del programa por lógica
  public static void end(){
    try {
-      Thread.sleep(2000);
+      Thread.sleep(3000);
    } catch (Exception e) {
       e.printStackTrace();
    }
@@ -110,7 +112,7 @@ public class ChromeTest{
 
    }
    @Test  
-   public void elementUploadForms() throws InterruptedException{//carga de archivo
+   public void elementUploadForms() throws Exception{//carga de archivo
       ChromeOptions options = new ChromeOptions();
       driver = new ChromeDriver(options);
       String archivo = "Loro.jpeg";
@@ -132,4 +134,19 @@ public class ChromeTest{
       
    }
 
+   @Test
+   public void elementSelectForms() throws Exception{//clase Select solo con Selenium
+
+      WebElement select = driver.findElement(By.name("my-select"));//recoger el nombre del elemento
+      Select comboSelect = new Select(select);//crear el objeto Select
+      comboSelect.selectByIndex(1);//selecciona el indice que lo que queremos probar, empieza siempre en 0
+
+   }
+
+   @Test
+   public void dateSelectForms() throws Exception{
+      WebElement calendar = driver.findElement(By.name("my-date"));
+      calendar.sendKeys("01/30/2024"); //envío para prueba, depende del popup
+      calendar.sendKeys(Keys.TAB);
+   }
 }

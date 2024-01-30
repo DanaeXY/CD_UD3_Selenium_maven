@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -13,53 +15,54 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class ChromeTest{
 
- ChromeDriver driver;//abre ventana de chrome para probar app o pagweb
+ static ChromeDriver driver;//abre ventana de chrome para probar app o pagweb
+
+ @BeforeAll//antes de cualquier test ejecuta este método, así no es necesario llamarlo
+ public static void start(){//no queremos repetición así que declaramos nuevo método estatico y la variable ChromeDriver tb static
+   ChromeOptions options = new ChromeOptions();
+   options.addArguments("start-maximized");
+   driver = new ChromeDriver(options);
+   driver.get("https://www.selenium.dev/selenium/web/web-form.html");
+ }
+
+ @AfterAll//se coloca al final del programa por lógica
+ public static void end(){
+   try {
+      Thread.sleep(2000);
+   } catch (Exception e) {
+      e.printStackTrace();
+   }
+   driver.quit();
+ }
 
  @Test  
- public void test(){
-    ChromeOptions options = new ChromeOptions();
-    driver = new ChromeDriver(options);
-    driver.get("https://www.selenium.dev/selenium/web/web-form.html");//url que deseas probar, si está en local se llamará desde local
-
-    /*try {
-      Thread.sleep(5000);//debe lanzarse la excepción. Abrirá la ventana y la cerrará a los 5 seg
-   } catch (InterruptedException e) {
-      
-      e.printStackTrace();
-   }*/
+ public void basicOptions(){
+    
     //System.out.println(driver.getTitle());
     WebElement textInput = driver.findElement(By.id("my-text-id"));//buscar un id por su nombre
     textInput.sendKeys("vanessa");//para probarlo escribimos algo y debemos incluir después el thread
 
-    try {
+    /*try {
       Thread.sleep(3000);
    } catch (InterruptedException e) {
       
       e.printStackTrace();
-   }
+   }*/
 
    WebElement button = driver.findElement(By.className("btn-outline-primary"));//en caso de ser clase, copiar únicamente el nombre central(caso contrario: excepción)
    button.click();
-   try {
+   /*try {
       Thread.sleep(5000);
    } catch (InterruptedException e) {
       
       e.printStackTrace();
-   }
+   }*/
 
    WebElement mensaje = driver.findElement(By.id("message"));
    System.out.println(mensaje.getText());
 
    assertEquals("Received!", mensaje.getText());//primer parámetro (lo que esperas) exactamente igual al segundo parámetro (la variable anteriormente creada)
-   try {
-      Thread.sleep(2000);
-   } catch (InterruptedException e) {
-      
-      e.printStackTrace();
-   }
 
-
-    driver.quit();//cierra la ventana
  }
 
    @Test  
@@ -81,7 +84,7 @@ public class ChromeTest{
       Thread.sleep(2000);
 
       
-      driver.quit();
+      //driver.quit();
    }
 
    @Test  
@@ -103,7 +106,7 @@ public class ChromeTest{
       } catch (Exception e) {
          
       }
-      driver.quit();
+      //driver.quit();
 
    }
    @Test  
@@ -126,11 +129,7 @@ public class ChromeTest{
       WebElement fileName = driver.findElement(By.id("uploaded-files"));
       assertEquals(archivo, fileName.getText());//comparará el esperado "Loro.jpeg" con el nombre que devuelve la página como nombre de archivo
       /*escribir "Loro.jpeg" se denomina LITERAL no es aconsejable */
-      Thread.sleep(2000);
-
-      driver.quit();
-
-
+      
    }
 
 }

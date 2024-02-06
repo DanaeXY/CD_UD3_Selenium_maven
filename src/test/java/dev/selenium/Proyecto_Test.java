@@ -37,24 +37,14 @@ public class Proyecto_Test{
    driver.quit();
  }
 
- @Test  
- public void basicOptions(){
-    
-    //System.out.println(driver.getTitle());
-    WebElement textInput = driver.findElement(By.id("my-text-id"));//buscar un id por su nombre
-    textInput.sendKeys("vanessa");//para probarlo escribimos algo y debemos incluir después el thread
-
-
-   WebElement button = driver.findElement(By.className("btn-outline-primary"));//en caso de ser clase, copiar únicamente el nombre central(caso contrario: excepción)
-   button.click();
-   
-
-   WebElement mensaje = driver.findElement(By.id("message"));
-   System.out.println(mensaje.getText());
-
-   assertEquals("Received!", mensaje.getText());//primer parámetro (lo que esperas) exactamente igual al segundo parámetro (la variable anteriormente creada)
+ public static void buscarArticulo(){
+   WebElement search = driver.findElement(By.id("buscar"));
+      search.sendKeys("Duraline");
+      search.sendKeys(Keys.ENTER);
 
  }
+
+/*pruebas con web maquillalia.com */
 
    @Test  
    public void CPF1() throws InterruptedException{
@@ -73,7 +63,6 @@ public class Proyecto_Test{
       search.sendKeys("Eyeliner");
       search.sendKeys(Keys.ENTER);
       
-      Thread.sleep(5000);
 
    }
 
@@ -90,10 +79,62 @@ public class Proyecto_Test{
       WebElement categoria = driver.findElement(By.className("tab-item"));
       categoria.click();
      
-    Thread.sleep(3000);
-      
+   
+   }
+
+   @Test
+   public void CPF3() throws InterruptedException{
+      buscarArticulo();//duraline
+      WebElement producto = driver.findElement(By.xpath(".//a[@class=\"mgp-ajax Button Buy\"]"));
+      producto.click();
 
    }
+
+   @Test
+   public void CPF4() throws InterruptedException{
+      Thread.sleep(3000);
+
+      WebElement usuario = driver.findElement(By.xpath(".//div[@class=\"lgin tt tt-3 mhide\"]"));
+      usuario.click();
+
+      WebElement email = driver.findElement(By.xpath(".//div[@name=\"email_address\"]"));
+      email.sendKeys("abuela.gmail.com");
+      WebElement submit = driver.findElement(By.xpath(".//input[@class=\"mt-auto\"]"));
+      submit.click();
+
+
+   }
+
+   @Test
+   public void CPF5() throws InterruptedException{
+      WebElement button = driver.findElement(By.id("cbcr-crrt"));
+      button.click();
+   }
+
+
+   
+
+/*xpath--chrome ctrl+F*/
+
+   /*@Test  
+   public void basicOptions(){
+      
+      //System.out.println(driver.getTitle());
+      WebElement textInput = driver.findElement(By.id("my-text-id"));//buscar un id por su nombre
+      textInput.sendKeys("vanessa");//para probarlo escribimos algo y debemos incluir después el thread
+  
+  
+     WebElement button = driver.findElement(By.className("btn-outline-primary"));//en caso de ser clase, copiar únicamente el nombre central(caso contrario: excepción)
+     button.click();
+     
+  
+     WebElement mensaje = driver.findElement(By.id("message"));
+     System.out.println(mensaje.getText());
+  
+     assertEquals("Received!", mensaje.getText());//primer parámetro (lo que esperas) exactamente igual al segundo parámetro (la variable anteriormente creada)
+  
+   }
+
    @Test  
    public void elementUploadForms() throws Exception{//carga de archivo
       ChromeOptions options = new ChromeOptions();
@@ -101,7 +142,7 @@ public class Proyecto_Test{
       String archivo = "Loro.jpeg";
       driver.get("https://the-internet.herokuapp.com/upload");
 
-      File uploadFile = new File("src/Files/"+archivo);/*absoluta: /home/sanclemente.local/a23vanessabg/Escritorio/CD_UD3_Selenium_maven/src/Files/Loro.jpeg */
+      File uploadFile = new File("src/Files/"+archivo);/*absoluta: /home/sanclemente.local/a23vanessabg/Escritorio/CD_UD3_Selenium_maven/src/Files/Loro.jpeg 
       WebElement fileInput = driver.findElement(By.cssSelector("input[type=file]"));//pasar solo el tipo que queremos
       fileInput.sendKeys(uploadFile.getAbsolutePath());//ruta absoluta NO porque solo funcionaría en este ordenador
       
@@ -113,7 +154,7 @@ public class Proyecto_Test{
 
       WebElement fileName = driver.findElement(By.id("uploaded-files"));
       assertEquals(archivo, fileName.getText());//comparará el esperado "Loro.jpeg" con el nombre que devuelve la página como nombre de archivo
-      /*escribir "Loro.jpeg" se denomina LITERAL no es aconsejable */
+      /*escribir "Loro.jpeg" se denomina LITERAL no es aconsejable 
       
    }
 
@@ -135,6 +176,6 @@ public class Proyecto_Test{
 
 
    @Test
-   public void radioSelectForms() throws Exception{}
+   public void radioSelectForms() throws Exception{}*/
 
 }

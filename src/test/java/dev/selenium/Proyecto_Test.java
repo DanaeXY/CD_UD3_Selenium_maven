@@ -144,7 +144,8 @@ public class Proyecto_Test{
       inputTown.sendKeys("xxxxxx");
       WebElement checkBox = driver.findElement(By.xpath(".//input[@name="termsAgree"]"));
       checkBox.click();
-      
+      WebElement buttonNext = driver.findElement(By.xpath(".//input[@class="button verde tblanco hv9"]"));
+      buttonNext.click();
       
       
    }

@@ -149,6 +149,49 @@ public class Proyecto_Test{
       
       
    }
+   @Test
+   public void CPF7() throws InterruptedException{
+      Thread.sleep(3000);
+
+      JMeterUtils.loadJMeterProperties("src/test/resources/jmeter.properties");
+       JMeterUtils.setJMeterHome("src/test/resources/apache-jmeter-5.4.1");
+
+       // Crear motor JMeter
+       StandardJMeterEngine jmeter = new StandardJMeterEngine();
+
+       // Configurar plan de prueba
+       TestPlan testPlan = new TestPlan("Test Plan");
+       jmeter.configure(testPlan);
+
+       // Configurar grupo de hilos
+       SetupThreadGroup threadGroup = new SetupThreadGroup();
+       threadGroup.setNumThreads(100);
+       threadGroup.setRampUp(60);
+       threadGroup.setDuration(3600);
+       threadGroup.setSamplerController(new LoopController());
+       threadGroup.setName("Test Thread Group");
+
+       // Configurar el sampler HTTP
+       HTTPSampler httpSampler = new HTTPSampler();
+       httpSampler.setDomain("www.maquillalia.com");
+       httpSampler.setPort(80);
+       httpSampler.setPath("/");
+       httpSampler.setMethod("GET");
+
+       // Agregar sampler HTTP al grupo de hilos
+       threadGroup.addTestElement(httpSampler);
+
+       // Agregar grupo de hilos al plan de prueba
+       testPlan.addThreadGroup(threadGroup);
+
+       // Adjuntar plan de prueba al motor JMeter
+       jmeter.configure(testPlan);
+
+       // Iniciar motor JMeter
+       jmeter.run();
+    
+   }
+ 
    
 
 /*xpath--chrome ctrl+F*/

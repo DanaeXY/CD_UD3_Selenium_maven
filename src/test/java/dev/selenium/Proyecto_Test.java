@@ -192,8 +192,59 @@ public class Proyecto_Test{
     
    }
  
-   
+   /*PRUEBA DE ADAPTABILIDAD*/
+public class AccessibilityTest {
 
+    static WebDriver driver;
+
+    @BeforeAll
+    public static void setUp() {
+        ChromeOptions options = new ChromeOptions();
+        options.setHeadless(true);
+        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+        driver = new ChromeDriver(capabilities);
+    }
+
+    @AfterAll
+    public static void tearDown() {
+        driver.quit();
+    }
+
+    @Test
+    public void testAccessibility() throws IOException {
+        // Navegar a la página web que deseas probar
+        driver.get("https://www.maquillalia.com/");
+
+        // Ejecutar Axe para realizar la auditoría de accesibilidad
+        List<com.deque.axe.AuditResult> results = AXE.run(driver);
+
+        // Crear un directorio para guardar los resultados
+        File outputDirectory = new File("accessibility-results");
+        outputDirectory.mkdir();
+
+        // Guardar los resultados en un archivo JSON
+        for (int i = 0; i < results.size(); i++) {
+            com.deque.axe.AuditResult result = results.get(i);
+            File outputFile = new File(outputDirectory, "result-" + i + ".json");
+            Files.write(outputFile.toPath(), result.toJsonString().getBytes());
+        }
+
+        // Verificar si hay violaciones de accesibilidad
+        for (com.deque.axe.AuditResult result : results) {
+            if (result.getViolations().isEmpty()) {
+                System.out.println("No hay violaciones de accesibilidad.");
+            } else {
+                System.out.println("Violaciones de accesibilidad encontradas:");
+                result.getViolations().forEach(violation -> {
+                    System.out.println(violation.getDescription());
+                });
+            }
+        }
+    }
+}
+
+ 
 /*xpath--chrome ctrl+F*/
 
    /*@Test  

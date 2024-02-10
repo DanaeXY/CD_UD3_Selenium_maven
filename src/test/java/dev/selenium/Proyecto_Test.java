@@ -111,7 +111,43 @@ public class Proyecto_Test{
       button.click();
    }
 
+ @Test
+   public void CPF6() throws InterruptedException{
+      Thread.sleep(3000);
 
+      buscaArticulo();
+      WebElement button = driver.findElement(By.xpath(".//div[@class="BuyCn"]"));
+      button.click();
+      WebElement basket = driver.findElement(By.xpath(".//i[@class="tt tt-7"]"));
+      basket.click();
+      WebElement buttonBasket = driver.findElement(By.xpath(".//a[@class="bbuy"]"));
+      buttonBasket.click();
+      WebElement buttonBuy = driver.findElement(By.xpath(".//a[@class="Button Fnsh"]"));
+      buttonBuy.click();
+      WebElement buttonNotRegister = driver.findElement(By.xpath(".//span[@class="CestaFoot Btns"]"));
+      buttonNotRegister.click();
+      WebElement input = driver.findElement(By.Name(".//input[@name="firstname"]"));
+      input.sendKeys("X");
+      WebElement input2 = driver.findElement(By.Name(".//input[@name="lastname"]"));
+      input2.sendKeys("X");
+      WebElement inputEmail = driver.findElement(By.Name(".//input[@name="email_address"]"));
+      inputEmail.sendKeys("abuela@yahoo.es");
+      WebElement inputTelf = driver.findElement(By.Name(".//input[@name="telephone"]"));
+      inputTelf.sendKeys("666666666");
+      WebElement inputAdress = driver.findElement(By.Name(".//input[@name="street_address"]"));
+      inputTelf.sendKeys("calle calleja");
+      WebElement inputCountry = driver.findElement(By.Name(".//select[@name="country"]"));
+      inputCountry.Select("");//.//option[@value="195"]
+      WebElement inputCity = driver.findElement(By.Name(".//select[@name="zone_id"]"));
+      inputCountry.Select("");//.//option[@value="130"];
+      WebElement inputTown = driver.findElement(By.Name(".//input[@name="city"]"));
+      inputTown.sendKeys("xxxxxx");
+      WebElement checkBox = driver.findElement(By.xpath(".//input[@name="termsAgree"]"));
+      checkBox.click();
+      
+      
+      
+   }
    
 
 /*xpath--chrome ctrl+F*/

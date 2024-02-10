@@ -243,8 +243,42 @@ public class AccessibilityTest {
         }
     }
 }
+/*PRUEBA DE COMPATIBILIDAD*/
+ public class BrowserCompatibilityTest {
 
- 
+    private WebDriver chromeDriver;
+    private WebDriver firefoxDriver;
+
+    @BeforeEach
+    public void setUp() {
+        // Configurar ChromeDriver
+        chromeDriver = new ChromeDriver();
+
+        // Configurar FirefoxDriver
+        FirefoxOptions firefoxOptions = new FirefoxOptions();
+        FirefoxProfile firefoxProfile = new FirefoxProfile();
+        firefoxOptions.setProfile(firefoxProfile);
+        firefoxDriver = new FirefoxDriver(firefoxOptions);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        // Cerrar los navegadores
+        chromeDriver.quit();
+        firefoxDriver.quit();
+    }
+
+    @Test
+    public void testCompatibility() {
+        // Probar en Chrome
+        chromeDriver.get("https://www.maquillalia.com/");
+        // Realizar tus pruebas en Chrome
+
+        // Probar en Firefox
+        firefoxDriver.get("https://www.maquillalia.com/");
+        // Realizar tus pruebas en Firefox
+    }
+} 
 /*xpath--chrome ctrl+F*/
 
    /*@Test  
